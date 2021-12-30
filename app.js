@@ -7,11 +7,11 @@ const app = express()
 app.use(express.json({extended: true}))
 const PORT = 5000
 
-app.use('/hello', require("./routes/hello.routes"))
+app.use('/weather', require("./routes/weather.routes"))
 
 async function start() {
     try {
-        await mongoose.connect(process.env.MONDOURL, {
+        await mongoose.connect(process.env.MONGOURL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })
