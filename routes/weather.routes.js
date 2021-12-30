@@ -2,12 +2,17 @@ const {Router} = require('express')
 const router = Router()
 const request = require('request');
 const CityWeather = require('../models/CityWeather');
+const Request = require('../models/Request');
+
 
 router.post(
     '/:city', 
     async (req, res)=>{
     try {
         const city = req.params.city;
+
+        const newRequest = new Request({city, date: new Date()})
+        await newRequest.save()
 
         request(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=`+process.env.MYAPIKEY, async function(error, response, body) {
             const info = JSON.parse(body)
